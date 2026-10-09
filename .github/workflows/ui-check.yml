@@ -1,0 +1,12 @@
+name: ui-check
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  html:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: index exists
+        run: test -f index.html && grep -q 'Cash is not claimed' index.html
