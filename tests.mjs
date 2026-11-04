@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+const get=(name)=>readFileSync(new URL(name,import.meta.url),'utf8');
+const home=get('./index.html'),more=get('./more.html'),server=get('./server.mjs');
+assert.equal((home.match(/<h1\b/g)||[]).length,1);
+assert.equal((home.match(/buy\.stripe\.com/g)||[]).length,1);
+assert(home.includes('$497')&&home.includes('$2,500')&&home.includes('$2,003'));
+assert(!/RHNS|NEXUS|Wealth Forge/i.test(home));
+assert(more.includes('RHNS')&&more.includes('NEXUS')&&more.includes('WEALTH FORGE'));
+assert.equal((more.match(/class="listing"/g)||[]).length,50);
+assert.equal((more.match(/class="arch-card"><span class="num"/g)||[]).length,7);
+assert(home.indexOf('href="/more"') > home.indexOf('</main>'));
+assert(!server.includes('eval('));
+console.log('PASS: homepage, checkout, catalog, footer and safeguards');
