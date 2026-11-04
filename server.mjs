@@ -7,6 +7,7 @@ const routes = new Map([
   ['/', ['index.html','text/html; charset=utf-8']],
   ['/more', ['more.html','text/html; charset=utf-8']],
   ['/start', ['start.html','text/html; charset=utf-8']],
+  ['/support', ['support.html','text/html; charset=utf-8']],
   ['/privacy', ['privacy.html','text/html; charset=utf-8']],
   ['/terms', ['terms.html','text/html; charset=utf-8']],
   ['/style.css', ['style.css','text/css; charset=utf-8']],
