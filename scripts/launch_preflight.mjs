@@ -20,6 +20,7 @@ const checks = [
   }],
   ['Home keeps internal technology brand names off the primary offer', () => assert.ok(!/RHNS|NEXUS|Wealth Forge/i.test(home))],
   ['Additional divisions have their own archive page', () => assert.ok(more.includes('RHNS') && more.includes('NEXUS') && more.includes('WEALTH FORGE'))],
+  ['Checkout shows safe receipt-only instructions before payment', () => { assert.match(home, /Share only your Stripe receipt ID/i); assert.ok(home.includes('href="/start"')); }],
   ['Support warns against sensitive emailed data', () => assert.match(support, /Do not email raw CRM lead exports/i)],
   ['Privacy requires an approved secure CRM transfer', () => assert.match(privacy, /secure transfer|restricted CRM access/i)],
   ['Post-checkout page warns that payment must be independently verified', () => assert.match(start, /does not confirm payment/i)],
