@@ -11,8 +11,8 @@ const more = load('more.html');
 const server = load('server.mjs');
 
 const checks = [
-  ['Homepage presents exactly one primary headline', () => assert.equal((home.match(/<h1\\b/gi) || []).length, 1)],
-  ['Only one checkout link appears on homepage', () => assert.equal((home.match(/https:\/\/buy\\.stripe\\.com\//g) || []).length, 1)],
+  ['Homepage presents exactly one primary headline', () => assert.equal((home.match(/<h1\b/gi) || []).length, 1)],
+  ['Only one checkout link appears on homepage', () => assert.equal((home.match(/https:\/\/buy\.stripe\.com\//g) || []).length, 1)],
   ['Live checkout link equals approved $497 SKU link', () => assert.ok(home.includes('https://buy.stripe.com/8x2eVddjf0hQ86Tf0f43S2h'))],
   ['Offer, install and credit arithmetic are consistent', () => {
     assert.ok(home.includes('$497') && home.includes('$2,500') && home.includes('$2,003'));
@@ -38,7 +38,7 @@ const checks = [
 let failed = 0;
 for (const [label, fn] of checks) {
   try { fn(); console.log('PASS: ' + label); }
-  catch (error) { failed++; console.error('FAIL: ' + label + '\\n' + error.message); }
+  catch (error) { failed++; console.error('FAIL: ' + label + '\n' + error.message); }
 }
 if (failed) { console.error('LOCAL STATIC PRE-FLIGHT FAILED: ' + failed + ' checks'); process.exitCode = 1; }
 else {
