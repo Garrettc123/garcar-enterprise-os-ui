@@ -26,6 +26,30 @@ const headers = {
 const port = Number(process.env.PORT || 3000);
 
 const acquisitionToken = process.env.GARCAR_ACQUISITION_TOKEN || '';
+const posthogToken = process.env.POSTHOG_PROJECT_TOKEN || '';
+const posthogHost = process.env.POSTHOG_HOST || '';
+async function trackConfirmedInquiry(leadId, attributes){
+  if (!/^lead_[a-f0-9]{32}$/.test(String(leadId)) || !posthogToken.startsWith('phc_') || !/^https:\/\/((us|eu)\.i\.posthog\.com)$/.test(posthogHost)) return;
+  const event={
+    api_key:posthogToken,
+    event:'garcar_inquiry_received',
+    distinct_id:leadId,
+    timestamp:new Date().toISOString(),
+    properties:{
+      $lib:'garcar-commerce-server',
+      offer_sku:'REV-497',
+      source:'first_party_form',
+      utm_source:attributes.utm_source || '',
+      utm_medium:attributes.utm_medium || '',
+      utm_campaign:attributes.utm_campaign || '',
+      crm:attributes.crm || 'unsure',
+      marketing_consent:attributes.marketing_consent===true,
+      $process_person_profile:false
+    }
+  };
+  try{await fetch(posthogHost+'/capture/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(event),signal:AbortSignal.timeout(2500)});}catch{ /* analytics failure never blocks customer intake */ }
+}
+
 const acquisitionEndpoint = process.env.GARCAR_ACQUISITION_ENDPOINT || '';
 const acceptedOrigin = 'https://garcar-enterprise.up.railway.app';
 const requestBuckets = new Map();
@@ -72,6 +96,7 @@ async function handleAcquisition(req,res){
     if(data?.accepted!==true || !/^lead_[a-f0-9]{32}$/.test(data.lead_id||'') ||
        !String(data.checkout_url||'').startsWith('https://buy.stripe.com/'))
       return writeJson(res,502,{error:'acquisition_invalid_response'});
+    void trackConfirmedInquiry(data.lead_id,clean);
     return writeJson(res,201,{accepted:true,lead_id:data.lead_id,
       checkout_url:data.checkout_url,duplicate:data.duplicate===true,
       next_step:'optional_stripe_checkout',outbound_sent:false});
