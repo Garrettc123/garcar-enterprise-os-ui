@@ -19,6 +19,38 @@
 </aside>
 </section>
 <div class="proof-bar"><div class="wrap proof-inner"><div class="proof-mark">THE RESPONSE GAP <span class="gold">/ 2026</span></div><p>In a 2026 industry study, <strong>68% of real estate website inquiries received no reply within 24 hours.</strong> <a href="https://www.floridarealtors.org/news-media/news-articles/2026/10/real-estate-inquiries-often-fail-reach-agents" target="_blank" rel="noopener noreferrer">Study details ↗</a></p></div></div>
+
+<section class="acquisition wrap" id="request-review" aria-label="Request a follow-up review">
+  <div class="acquisition-copy">
+    <span class="smalllabel">TALK TO GARCAR / PRIVATE INQUIRY</span>
+    <h2>Your CRM is already paid for. Is it delivering every callback?</h2>
+    <p>Tell us about your team. We'll record your request securely, and you can continue to the $497 review checkout with your inquiry linked to your payment.</p>
+    <p class="acquisition-fine">We don't need your clients' phone numbers or lead lists here. We don't send automated sales messages. Nothing is charged when you submit this form.</p>
+  </div>
+  <form class="acquisition-form" id="acquisition-form" method="post" action="/api/acquisition">
+    <div class="form-pair">
+      <label>Full name <input name="full_name" type="text" required minlength="2" maxlength="100" autocomplete="name"></label>
+      <label>Work email <input name="email" type="email" required maxlength="180" autocomplete="email"></label>
+    </div>
+    <label>Real estate team or company <input name="company" type="text" required minlength="2" maxlength="120" autocomplete="organization"></label>
+    <label>CRM your team uses
+      <select name="crm" required>
+        <option value="unsure">Not sure / other</option>
+        <option value="follow_up_boss">Follow Up Boss</option>
+        <option value="kvcore">kvCORE</option>
+        <option value="hubspot">HubSpot</option>
+        <option value="other">Another CRM</option>
+      </select>
+    </label>
+    <div class="fax-trap" aria-hidden="true"><label>Company website fax <input name="company_website_fax" type="text" tabindex="-1" autocomplete="off"></label></div>
+    <label class="form-check"><input type="checkbox" name="contact_permission" required> Garcar may reply to my inquiry about the review using the email provided.</label>
+    <label class="form-check optional"><input type="checkbox" name="marketing_consent"> I also want occasional updates about Garcar services (optional).</label>
+    <button type="submit" class="request-action">REQUEST MY REVIEW <span aria-hidden="true">↗</span></button>
+    <div id="acquisition-result" class="acquisition-result" role="status" aria-live="polite"></div>
+    <p class="form-footer">Your information is used to respond to this request. <a href="/privacy">Privacy details</a>. No raw lead lists or sensitive customer records.</p>
+  </form>
+</section>
+
 <section class="details wrap" aria-label="Scope and delivery">
 <div class="section-heading"><span class="smalllabel">WHAT YOU BUY</span><h2>A review you can act on—not another software subscription.</h2></div>
 <div class="detail-grid"><article class="detail"><span class="num">01 / INPUT</span><h3>One recent lead list</h3><p>Use the CRM you're already running. We agree on one authorized export and review its follow-up timestamps and owner assignments.</p></article>
@@ -28,4 +60,4 @@
 </section>
 <section class="upgrade wrap" aria-label="Optional installation"><div class="upgrade-label"><span class="smalllabel">AFTER THE REVIEW</span><span class="upgrade-index">OPTIONAL / 01</span></div><div class="upgrade-content"><div><h2>When you want the fix installed.</h2><p>We configure a follow-up timer, lead ownership alerts and a designated backup caller in Follow Up Boss or your existing compatible CRM, with an agreed handoff rule and test.</p></div><div class="upgrade-price"><span class="tag">ONE-TIME INSTALLATION</span><strong>$2,500</strong><p>Your $497 review payment is credited toward installation. Remaining balance: <b>$2,003</b>, quoted after the review and compatibility check.</p></div></div><p class="upgrade-fine">Implementation is a separate, optional scope. We confirm CRM capabilities, access permissions and routing rules before installation. No automatic messages or calls are sent without authorization.</p></section>
 <section class="final-note wrap"><div class="smalllabel">GARCAR ENTERPRISE / DALLAS–FORT WORTH</div><p>Find the silence between a new lead and the next call.</p></section>
-</main><footer class="footer wrap"><span>© 2026 Garcar Enterprise LLC</span><div class="footer-links"><a href="/support">Customer Support</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/more">More from Garcar</a></div></footer></body></html>
+</main><footer class="footer wrap"><span>© 2026 Garcar Enterprise LLC</span><div class="footer-links"><a href="/support">Customer Support</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/more">More from Garcar</a></div></footer><script src="/acquisition.js" defer></script></body></html>
