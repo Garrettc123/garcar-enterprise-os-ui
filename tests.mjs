@@ -25,6 +25,6 @@ assert(server.includes("acquisitionToken.length<32"));
 assert(server.includes("String(req.headers['content-type']"));
 assert(server.includes("startsWith('https://buy.stripe.com/')"));
 assert(acquisition.includes("credentials: 'same-origin'"));
-assert(acquisition.includes('outbound_sent'));
+assert(acquisition.includes('contact_permission'));
 assert(privacy.includes('promotional updates are optional'));
 console.log('PASS: homepage, checkout, catalog, footer and safeguards');
