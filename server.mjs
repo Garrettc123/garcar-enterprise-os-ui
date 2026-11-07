@@ -108,7 +108,7 @@ http.createServer(async (req,res)=>{
   if(path==='/api/acquisition')return handleAcquisition(req,res);
   if (path === '/health') {
     res.writeHead(200, {'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store',...headers});
-    return res.end(JSON.stringify({status:'ok',service:'garcar-dfw-followup'}));
+    return res.end(JSON.stringify({status:'ok',service:'garcar-texas-followup'}));
   }
   if (!['GET','HEAD'].includes(req.method)) {
     res.writeHead(405, {'Allow':'GET, HEAD',...headers}); return res.end();
@@ -123,4 +123,4 @@ http.createServer(async (req,res)=>{
   } catch {
     res.writeHead(503, {'Content-Type':'text/plain; charset=utf-8',...headers}); res.end('Temporarily unavailable');
   }
-}).listen(port,'0.0.0.0',()=>{console.log('garcar-dfw-followup listening on '+port)});
+}).listen(port,'0.0.0.0',()=>{console.log('garcar-texas-followup listening on '+port)});
