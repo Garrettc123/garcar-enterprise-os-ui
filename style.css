@@ -25,3 +25,40 @@
 .fax-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 @media(max-width:950px){.acquisition{grid-template-columns:1fr;gap:32px}}
 @media(max-width:650px){.acquisition-form{padding:22px}.acquisition-form .form-pair{grid-template-columns:1fr}.acquisition-copy h2{font-size:36px}}
+
+
+/* GARCAR AUREUM / high-contrast electric gold on true black */
+:root{--bg:#050505;--paper:#fff8df;--soft:#f0e4c4;--muted:#c9bd9c;--gold:#ffcc18;--line:#735d1c;--card:#101009;--max:1280px}
+body{background:radial-gradient(ellipse 70% 32% at 86% 12%,rgba(255,204,24,.13),transparent 72%),radial-gradient(ellipse 50% 38% at 7% 44%,rgba(255,177,0,.08),transparent 75%),#050505;color:var(--paper)}
+.topbar{position:relative;background:rgba(0,0,0,.95);border-bottom:1px solid #907326;box-shadow:0 1px 24px rgba(255,204,24,.14)}
+.brandmark{color:#fff7da;text-shadow:0 0 24px rgba(255,201,16,.25)}
+.brandmark span,.eyebrow,.smalllabel,.num{color:var(--gold)}
+.top-right{color:#f5d575}
+.status-dot,.live-dot{background:#ffd51e;box-shadow:0 0 15px #ffc400}
+.hero{position:relative;padding-top:112px;padding-bottom:125px}
+.hero:before{content:"";position:absolute;pointer-events:none;inset:5% -8% 0 35%;background:radial-gradient(circle at 60% 20%,rgba(255,212,35,.16),transparent 48%);z-index:-1}
+.hero h1{font-weight:760;letter-spacing:-.072em;text-shadow:0 12px 45px rgba(0,0,0,.55)}
+.hero h1 em{color:#ffcf24;text-shadow:0 0 35px rgba(255,185,7,.29)}
+.subhead{color:#f0e4ca}
+.offerprice{color:#ffce24;text-shadow:0 0 40px rgba(255,187,0,.16)}
+.primary-action,.request-action{background:linear-gradient(110deg,#fff04a 0%,#ffc21b 49%,#ff9800 100%)!important;color:#060606!important;box-shadow:0 12px 48px rgba(255,171,0,.19),inset 0 1px rgba(255,255,255,.55);border-radius:8px!important;transition:transform .18s,box-shadow .18s}
+.primary-action:hover,.request-action:hover{transform:translateY(-3px);box-shadow:0 19px 60px rgba(255,187,0,.3)}
+.visual-panel{border:1px solid #b58a22;border-radius:17px;background:linear-gradient(150deg,#201905,#0a0a08 58%,#161100);box-shadow:0 35px 120px rgba(0,0,0,.65),0 0 75px rgba(255,184,0,.09)}
+.visual-panel:before{background:linear-gradient(90deg,#fff55b,#ed9d00);width:140px;height:5px}
+.panel-badge{color:#ffd830;border:1px solid #c29b2d;background:rgba(255,208,0,.08);border-radius:4px}
+.flow-row{border-color:#59471d}.flow-row.highlight{background:linear-gradient(90deg,rgba(255,203,25,.17),rgba(255,203,25,.035));border-color:#9f7b20;border-radius:6px}
+.proof-bar{background:linear-gradient(100deg,#ffed70,#ffbc12 65%,#dd8e03);color:#161000;box-shadow:0 7px 25px rgba(255,196,18,.15)}
+.proof-inner p{color:#1b1502}.proof-inner strong{color:#000}.proof-inner a{color:#181000}
+.detail{border-top:2px solid #bd9421;background:linear-gradient(140deg,rgba(255,206,17,.06),transparent 80%);padding:28px 20px 30px;border-radius:5px}
+.detail h3{color:#fff9e9}.detail p{color:#e4d8c3}
+.scope-note{background:#100e07;border-color:#87651c;border-radius:10px}
+.upgrade{border-radius:17px;background:linear-gradient(135deg,#27200b,#090908 65%);border:1px solid #b48b26;box-shadow:0 25px 75px rgba(0,0,0,.4)}
+.upgrade h2{color:#fff7d4}.upgrade-price strong{color:#ffcd19}
+.acquisition{border-color:#9b7825;padding-top:92px;padding-bottom:95px}
+.acquisition-copy h2{color:#fff7db}
+.acquisition-form{border:1px solid #bd962c;border-radius:15px;background:linear-gradient(155deg,#221b08,#0a0a09 64%);box-shadow:0 25px 90px rgba(0,0,0,.5)}
+.acquisition-form input:not([type="checkbox"]),.acquisition-form select{background:#070707;border-color:#a58121;border-radius:6px}
+.acquisition-form .form-check{color:#fff0cd}
+.final-note p{color:#fff1c3}
+.footer{border-top-color:#86661c}.footer-links a:hover{color:#ffce24}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
