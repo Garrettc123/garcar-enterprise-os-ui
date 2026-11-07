@@ -62,3 +62,30 @@ body{background:radial-gradient(ellipse 70% 32% at 86% 12%,rgba(255,204,24,.13),
 .final-note p{color:#fff1c3}
 .footer{border-top-color:#86661c}.footer-links a:hover{color:#ffce24}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+
+/* Texas-wide service territory — responsive without claiming physical offices. */
+.eyebrow-sep{color:#a47d18;opacity:.75}
+.statewide{padding:88px 0 102px}
+.statewide-content{position:relative;overflow:hidden;padding:48px clamp(24px,5vw,64px) 34px;background:linear-gradient(145deg,#1b1709 0%,#080808 56%,#1b1303 100%);border:1px solid #b48b26;border-radius:18px;box-shadow:0 32px 110px rgba(0,0,0,.4),inset 0 1px rgba(255,232,107,.1)}
+.statewide-content:after{content:"TX";pointer-events:none;position:absolute;top:-70px;right:20px;font-weight:900;font-size:clamp(180px,22vw,360px);letter-spacing:-.09em;color:rgba(255,201,26,.038);line-height:1}
+.statewide-head{position:relative;z-index:1;max-width:970px}
+.statewide-head h2{font-size:clamp(33px,4.3vw,63px);font-weight:710;line-height:1.08;letter-spacing:-.06em;margin:22px 0 18px}
+.statewide-head h2 em{font-style:normal;color:#ffcf24;text-shadow:0 0 35px rgba(255,187,10,.17)}
+.statewide-head p{max-width:770px;font-size:16px;line-height:1.8;color:#e2d8c6}
+.region-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:36px}
+.region-grid span{display:flex;align-items:center;min-height:73px;padding:13px 17px;background:rgba(255,195,12,.055);border:1px solid #5e491c;border-radius:9px;font-size:12px;font-weight:740;letter-spacing:.02em;line-height:1.5;color:#f8e8bd;transition:border-color .18s,background .18s}
+.region-grid span:before{content:"◆";font-size:9px;color:#ffce1e;margin-right:11px;flex-shrink:0}
+.region-grid span:hover{border-color:#ffcf24;background:rgba(255,195,12,.1)}
+.statewide-bottom{position:relative;z-index:1;display:flex;align-items:center;gap:24px;padding-top:25px;margin-top:28px;border-top:1px solid #72591b}
+.statewide-bottom p{flex:1;margin:0;color:#cfc3a5;font-size:12px;line-height:1.75}
+.statewide-badge{color:#050505;background:linear-gradient(90deg,#ffe95e,#ffbb18);border-radius:6px;padding:10px 12px;font-size:10px;white-space:nowrap;font-weight:900;letter-spacing:.09em}
+.statewide-link{white-space:nowrap;font-size:11px;letter-spacing:.075em;font-weight:850;color:#ffd32b;border-bottom:1px solid #ffd32b;padding:10px 0}
+.statewide-link:hover{color:#fff0a3}
+@media(max-width:1050px){.region-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){.statewide{padding:48px 0 64px}.statewide-content{padding:32px 22px 28px}.region-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.region-grid span{font-size:11px;min-height:65px;padding:12px}.statewide-bottom{flex-wrap:wrap;align-items:flex-start;gap:12px}.statewide-bottom p{flex-basis:100%;order:2}.statewide-link{order:1;margin-left:auto}.statewide-head h2{margin:18px 0}}
+@media(max-width:430px){.region-grid{grid-template-columns:1fr 1fr}.region-grid span{min-height:72px;font-size:10px;padding:10px}.statewide-badge{font-size:9px}.statewide-link{font-size:10px}}
+
+/* Keep the statewide header readable on narrow screens. */
+@media(max-width:650px){.top-right{max-width:148px;min-width:0;white-space:normal;text-align:right;line-height:1.35;font-size:9px;letter-spacing:.035em}.top-inner{gap:10px}.top-right .status-dot{flex:0 0 7px}.brandtext{font-size:10px}}
+@media(max-width:375px){.top-right{max-width:121px;font-size:8px}.brand{gap:9px}}
