@@ -27,4 +27,20 @@ assert(server.includes("startsWith('https://buy.stripe.com/')"));
 assert(acquisition.includes("credentials: 'same-origin'"));
 assert(acquisition.includes('contact_permission'));
 assert(privacy.includes('promotional updates are optional'));
-console.log('PASS: homepage, checkout, catalog, footer and safeguards');
+const terms=get('./terms.html');
+for(const p of [home,more,start,terms,privacy]) {
+  assert(p.includes('SERVING REAL ESTATE TEAMS ACROSS TEXAS'),'A page header reverted to DFW-only messaging');
+  assert(!p.includes('DFW REAL ESTATE TEAMS'),'DFW-only header cannot return');
+}
+assert(home.includes('id="texas-service-area"'));
+assert(home.includes('BUILT FOR TEXAS / STATEWIDE SERVICE'));
+assert(home.includes('Every other Texas county'));
+assert(home.includes('Rio Grande Valley')&&home.includes('El Paso')&&home.includes('Houston')&&home.includes('Waco'));
+assert(home.includes('Serving Texas statewide'));
+assert(home.includes('GARCAR ENTERPRISE / SERVING ALL OF TEXAS'));
+assert(home.includes('Texas Real Estate Lead Follow-Up Review'));
+assert(terms.includes('Texas-wide availability'));
+assert(more.includes('Texas-wide, remote real estate Follow-Up Review'));
+assert(server.includes('handleAcquisition(req,res)'),'Customer inquiry route must remain in place');
+
+console.log('PASS: statewide Texas coverage, $497 checkout, consent, catalog, and safeguards');
