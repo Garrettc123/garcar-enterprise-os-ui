@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { clientIp, createRateLimiter } from './rate-limit.mjs';
 import { readFileSync } from 'node:fs';
 const get=(name)=>readFileSync(new URL(name,import.meta.url),'utf8');
 const home=get('./index.html'),more=get('./more.html'),server=get('./server.mjs'),support=get('./support.html'),start=get('./start.html');
@@ -66,4 +67,30 @@ assert(acquisition.includes('Do not email raw lead lists or customer data'));
 assert(start.includes('does not confirm payment'));
 assert(start.includes('Do not email raw lead lists or customer personal information'));
 
-console.log('PASS: statewide Texas coverage, $497 checkout, consent, catalog, and safeguards');
+
+const request = (edgeIp, claimedIp = '203.0.113.99') => ({
+  headers:{'x-real-ip':edgeIp, 'x-forwarded-for':claimedIp},
+  socket:{remoteAddress:'100.64.0.1'}
+});
+assert.equal(clientIp(request('198.51.100.12')), '198.51.100.12');
+assert.equal(clientIp(request('2001:db8::1')), '2001:db8::1');
+assert.equal(clientIp(request('invalid-ip','198.51.100.222')), '100.64.0.1');
+// The caller-controlled X-Forwarded-For is never allowed to partition the rate-limit bucket.
+let timestamp=0;
+const allow = createRateLimiter({clock:()=>timestamp});
+for(let i=0;i<6;i++) assert.equal(allow(request('198.51.100.12', '198.51.100.'+i)), true);
+assert.equal(allow(request('198.51.100.12','198.51.100.250')), false);
+assert.equal(allow(request('198.51.100.13','198.51.100.12')), true);
+timestamp=600_000;
+assert.equal(allow(request('198.51.100.12')), true);
+const bounded = createRateLimiter({maxEntries:2,clock:()=>timestamp});
+assert.equal(bounded(request('198.51.100.1')), true);
+assert.equal(bounded(request('198.51.100.2')), true);
+assert.equal(bounded(request('198.51.100.3')), true);
+assert(server.includes("if (path === '/readyz')"));
+assert(server.includes('configured_unverified'));
+assert(server.includes('upstream_probe'));
+assert(!server.includes("req.headers['x-forwarded-for']"));
+assert(server.includes("if(!acquisitionConfigured())"));
+
+console.log('PASS: statewide Texas coverage, $497 checkout, consent, catalog, and ingress safeguards');

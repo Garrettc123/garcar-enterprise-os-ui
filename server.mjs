@@ -1,5 +1,5 @@
 import http from 'node:http';
-import { createHash } from 'node:crypto';
+import { createRateLimiter } from './rate-limit.mjs';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -55,23 +55,20 @@ async function trackConfirmedInquiry(leadId, attributes){
 
 const acquisitionEndpoint = process.env.GARCAR_ACQUISITION_ENDPOINT || '';
 const acceptedOrigin = 'https://garcar-enterprise.up.railway.app';
-const requestBuckets = new Map();
+const enforceRateLimit = createRateLimiter();
 const inquiryHeaders = {'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store',...headers};
 const writeJson = (res,code,body) => {res.writeHead(code,inquiryHeaders);res.end(JSON.stringify(body));};
-function enforceRateLimit(req){
-  // Railway is the TLS reverse proxy. This throttles by the forwarded client
-  // address and is an abuse deterrent, not a substitute for CAPTCHA/WAF.
-  const address=String(req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim().slice(0,120);
-  const key=createHash('sha256').update(address).digest('hex');
-  const now=Date.now(), current=requestBuckets.get(key);
-  if(requestBuckets.size>2000) for(const [k,v] of requestBuckets) if(now-v.since>600000)requestBuckets.delete(k);
-  if(!current || now-current.since>600000){requestBuckets.set(key,{since:now,hits:1});return true;}
-  current.hits++;
-  return current.hits<=6;
+function acquisitionConfigured(){
+  if(acquisitionToken.length<32) return false;
+  try {
+    const url = new URL(acquisitionEndpoint);
+    return url.protocol==='https:' && Boolean(url.hostname) &&
+      !url.username && !url.password && !url.hash;
+  }catch{return false;}
 }
 async function handleAcquisition(req,res){
   if(req.method!=='POST'){res.writeHead(405,{Allow:'POST',...headers});return res.end();}
-  if(!acquisitionEndpoint.startsWith('https://') || acquisitionToken.length<32)
+  if(!acquisitionConfigured())
     return writeJson(res,503,{error:'acquisition_temporarily_unavailable'});
   const origin=req.headers.origin;
   if(origin && origin!==acceptedOrigin) return writeJson(res,403,{error:'invalid_origin'});
@@ -109,6 +106,16 @@ async function handleAcquisition(req,res){
 http.createServer(async (req,res)=>{
   const path = new URL(req.url||'/', 'http://localhost').pathname;
   if(path==='/api/acquisition')return handleAcquisition(req,res);
+  if (path === '/readyz') {
+    // Configuration gate only: do not claim that an upstream inquiry was accepted.
+    const configured = acquisitionConfigured();
+    return writeJson(res,configured?200:503,{
+      status:configured?'configured':'not_ready',
+      service:'garcar-texas-followup',
+      acquisition:configured?'configured_unverified':'unavailable',
+      upstream_probe:'not_performed'
+    });
+  }
   if (path === '/health') {
     res.writeHead(200, {'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store',...headers});
     return res.end(JSON.stringify({status:'ok',service:'garcar-texas-followup'}));
