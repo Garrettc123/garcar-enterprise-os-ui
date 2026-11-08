@@ -66,6 +66,46 @@ function acquisitionConfigured(){
       !url.username && !url.password && !url.hash;
   }catch{return false;}
 }
+// Read-only handshake with the production dispatcher. No lead payloads,
+// Stripe requests, database writes, or outbound customer communications.
+// Cache for 45 seconds to prevent public checks from flooding the dispatcher.
+let integrationCache = {expiresAt:0, result:null};
+let integrationInFlight = null;
+async function acquisitionIntegrationCheck(){
+  if(!acquisitionConfigured()) return {status:'not_verified',reason:'not_configured'};
+  const now=Date.now();
+  if(integrationCache.result && now<integrationCache.expiresAt) return integrationCache.result;
+  if(integrationInFlight) return integrationInFlight;
+  integrationInFlight = (async()=>{
+    let result = {status:'not_verified',reason:'connection_unverified'};
+    try{
+      const endpoint=new URL(acquisitionEndpoint);
+      // Fail closed for nonstandard paths: never send an intake credential to
+      // a guessed destination, and never follow redirects with a secret header.
+      if(endpoint.pathname.endsWith('/acquisition/intake')){
+        endpoint.pathname=endpoint.pathname.replace(/\/intake$/, '/handshake');
+        const response=await fetch(endpoint.toString(),{
+          method:'GET',headers:{'X-Acquisition-Token':acquisitionToken},
+          redirect:'manual',signal:AbortSignal.timeout(4000)
+        });
+        if(response.status===200){
+          const data=await response.json();
+          if(data?.status==='authenticated' && data?.service==='garcar-dispatch' &&
+             data?.scope==='first_party_acquisition' && data?.read_only===true &&
+             data?.lead_created===false && data?.outbound_sent===false &&
+             data?.payment_attempted===false){
+            result={status:'authenticated_read_only',credential_match:true,
+                    lead_created:false,payment_attempted:false,
+                    customer_intake:'not_tested'};
+          }
+        }
+      }
+    }catch{ /* No error details or tokens in public diagnostics. */ }
+    integrationCache={expiresAt:Date.now()+45000,result};
+    return result;
+  })();
+  try{return await integrationInFlight;}finally{integrationInFlight=null;}
+}
 async function handleAcquisition(req,res){
   if(req.method!=='POST'){res.writeHead(405,{Allow:'POST',...headers});return res.end();}
   if(!acquisitionConfigured())
@@ -106,6 +146,13 @@ async function handleAcquisition(req,res){
 http.createServer(async (req,res)=>{
   const path = new URL(req.url||'/', 'http://localhost').pathname;
   if(path==='/api/acquisition')return handleAcquisition(req,res);
+  if (path === '/integrationz') {
+    if(req.method!=='GET'){res.writeHead(405,{Allow:'GET',...headers});return res.end();}
+    const result=await acquisitionIntegrationCheck();
+    return writeJson(res,result.status==='authenticated_read_only'?200:503,{
+      service:'garcar-texas-followup',...result
+    });
+  }
   if (path === '/readyz') {
     // Configuration gate only: do not claim that an upstream inquiry was accepted.
     const configured = acquisitionConfigured();
