@@ -14,6 +14,9 @@ const routes = new Map([
   ['/style.css', ['style.css','text/css; charset=utf-8']],
   ['/favicon.svg', ['favicon.svg','image/svg+xml']],
   ['/acquisition.js', ['acquisition.js','text/javascript; charset=utf-8']],
+  ['/robots.txt', ['robots.txt','text/plain; charset=utf-8']],
+  ['/sitemap.xml', ['sitemap.xml','application/xml; charset=utf-8']],
+  ['/llms.txt', ['llms.txt','text/plain; charset=utf-8']],
 ]);
 const headers = {
   'X-Content-Type-Options':'nosniff',
