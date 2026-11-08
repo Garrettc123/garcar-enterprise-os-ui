@@ -1,0 +1,32 @@
+# Garcar Enterprise
+
+> Texas-wide remote follow-up review service for real estate teams. Garcar Enterprise LLC reviews an authorized CRM lead export to identify missed callbacks, stale conversations, unclear ownership, and records with no next action. The service does not guarantee additional revenue.
+
+## Primary offer
+- Follow-Up Review: $497, one time, for one real estate team and one recent, authorized, usable CRM lead export.
+- Deliverables: findings summary and prioritized callback/action sheet.
+- Target turnaround: within 48 hours AFTER the agreed, usable export is received; not automatically 48 hours after checkout.
+- Teams can retain their existing CRM. Remote service is available across Texas; no on-site visit is included.
+- No subscription is charged for the review.
+
+## Optional implementation
+- Callback Clock installation: separately scoped, $2,500 one time, subject to CRM compatibility and approved access.
+- Verified $497 review payment can be credited toward installation, leaving $2,003 if the full credit applies.
+- No outbound calling or messaging without authorization. No promised sales outcome.
+
+## Privacy and purchasing
+- Stripe-hosted checkout is linked from the homepage. A checkout link alone does not verify successful payment.
+- Do not submit raw lead lists or customer contact records through the public inquiry form or email.
+- Review data transfer is arranged through an approved secure method.
+- Inquiry submission does not charge a customer or trigger outbound messages.
+
+## Site pages
+- Home and offer: https://garcar-enterprise.up.railway.app/
+- Service terms: https://garcar-enterprise.up.railway.app/terms
+- Privacy: https://garcar-enterprise.up.railway.app/privacy
+- Support: https://garcar-enterprise.up.railway.app/support
+- Additional Garcar divisions and archives: https://garcar-enterprise.up.railway.app/more
+
+## Machine-readable discovery
+- Sitemap: https://garcar-enterprise.up.railway.app/sitemap.xml
+- Crawler directives: https://garcar-enterprise.up.railway.app/robots.txt
