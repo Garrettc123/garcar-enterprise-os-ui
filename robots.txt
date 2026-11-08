@@ -1,0 +1,50 @@
+User-agent: *
+Allow: /
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /cgi-bin/
+Disallow: /?s=
+Disallow: /search/
+Allow: /wp-admin/admin-ajax.php
+
+Sitemap: https://garcar-enterprise.up.railway.app/sitemap.xml
+
+# ChatGPT search
+User-agent: OAI-SearchBot
+Allow: /
+
+# ChatGPT user-requested retrieval
+User-agent: ChatGPT-User
+Allow: /
+
+# Claude search
+User-agent: Claude-SearchBot
+Allow: /
+
+# Claude user-requested retrieval
+User-agent: Claude-User
+Allow: /
+
+# Google Search and AI features
+User-agent: Googlebot
+Allow: /
+
+# Bing search
+User-agent: Bingbot
+Allow: /
+
+# Perplexity search
+User-agent: PerplexityBot
+Allow: /
+
+# OpenAI model training
+User-agent: GPTBot
+Allow: /
+
+# Anthropic model training
+User-agent: ClaudeBot
+Allow: /
+
+# Gemini training and grounding
+User-agent: Google-Extended
+Allow: /
