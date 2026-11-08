@@ -59,4 +59,11 @@ assert(server.includes("['/llms.txt', ['llms.txt','text/plain; charset=utf-8']]"
 assert(llms.includes('$497')&&llms.includes('$2,500')&&llms.includes('$2,003'));
 assert(llms.includes('does not guarantee additional revenue'));
 
+// Payment instructions must remain secure even while Stripe-hosted copy awaits alignment.
+assert(home.includes('href="/start"') && home.includes('Never email raw CRM lead lists or customer records'));
+assert(acquisition.includes("intakeLink.href = '/start'"));
+assert(acquisition.includes('Do not email raw lead lists or customer data'));
+assert(start.includes('does not confirm payment'));
+assert(start.includes('Do not email raw lead lists or customer personal information'));
+
 console.log('PASS: statewide Texas coverage, $497 checkout, consent, catalog, and safeguards');
