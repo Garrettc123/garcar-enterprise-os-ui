@@ -93,4 +93,20 @@ assert(server.includes('upstream_probe'));
 assert(!server.includes("req.headers['x-forwarded-for']"));
 assert(server.includes("if(!acquisitionConfigured())"));
 
-console.log('PASS: statewide Texas coverage, $497 checkout, consent, catalog, and ingress safeguards');
+// Authenticated real-integration proof must be read-only and isolated from intake.
+assert(server.includes("if (path === '/integrationz')"));
+assert(server.includes("endpoint.pathname.replace(/\\/intake$/, '/handshake')"));
+assert(server.includes("'X-Acquisition-Token':acquisitionToken"));
+assert(server.includes("redirect:'manual'"),'Secret-bearing handshake may not follow redirects');
+assert(server.includes("credential_match:true"));
+assert(server.includes("customer_intake:'not_tested'"));
+assert(server.includes("read_only===true"));
+assert(server.includes("lead_created===false"));
+assert(server.includes("payment_attempted===false"));
+assert(server.includes("expiresAt:Date.now()+45000"));
+assert(server.includes("if(integrationInFlight) return integrationInFlight"));
+assert(server.includes("if (path === '/readyz')"),'Existing config-only readiness must remain');
+assert(server.includes("if(path==='/api/acquisition')return handleAcquisition(req,res);"),
+       'Actual inquiry intake must remain distinct from read-only check');
+
+console.log('PASS: statewide Texas coverage, $497 checkout, consent, catalog, ingress safeguards, and read-only bridge diagnostic');
