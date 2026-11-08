@@ -62,8 +62,8 @@ function acquisitionConfigured(){
   if(acquisitionToken.length<32) return false;
   try {
     const url = new URL(acquisitionEndpoint);
-    return url.protocol==='https:' && url.hostname.endsWith('.up.railway.app') &&
-      url.pathname==='/acquisition/intake' && !url.username && !url.password && !url.port && !url.search && !url.hash;
+    return url.protocol==='https:' && Boolean(url.hostname) &&
+      !url.username && !url.password && !url.hash;
   }catch{return false;}
 }
 async function handleAcquisition(req,res){
