@@ -40,7 +40,12 @@ if (form && feedback) {
         throw new Error('Payment checkout is currently unavailable.');
       link.href = data.checkout_url;
       link.rel = 'noopener noreferrer';
-      feedback.replaceChildren(message, link);
+      const intake = document.createElement('p');
+      intake.textContent = 'After checkout, keep your receipt and use the secure intake instructions. Do not email raw lead lists or customer data.';
+      const intakeLink = document.createElement('a');
+      intakeLink.href = '/start';
+      intakeLink.textContent = 'Secure intake instructions ↗';
+      feedback.replaceChildren(message, link, intake, intakeLink);
       form.reset();
     } catch (error) {
       feedback.textContent = error.message || 'Could not submit your request.';
