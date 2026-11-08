@@ -43,4 +43,20 @@ assert(terms.includes('Texas-wide availability'));
 assert(more.includes('Texas-wide, remote real estate Follow-Up Review'));
 assert(server.includes('handleAcquisition(req,res)'),'Customer inquiry route must remain in place');
 
+// Technical SEO regression coverage: public discovery files and route MIME types.
+const robots=get('./robots.txt'), sitemap=get('./sitemap.xml'), llms=get('./llms.txt');
+const canonical='https://garcar-enterprise.up.railway.app';
+assert(robots.includes('User-agent: *'));
+assert(robots.includes('User-agent: OAI-SearchBot'));
+assert(robots.includes('Sitemap: '+canonical+'/sitemap.xml'));
+const indexedPaths=['/','/more','/support','/privacy','/terms'];
+for(const path of indexedPaths)assert(sitemap.includes('<loc>'+canonical+path+'</loc>'),'Sitemap missing '+path);
+assert.equal((sitemap.match(/<url>/g)||[]).length,5,'Sitemap must contain five canonical pages');
+assert(!sitemap.includes('<loc>'+canonical+'/start</loc>'),'Post-checkout instructions must not be in the sitemap');
+assert(server.includes("['/robots.txt', ['robots.txt','text/plain; charset=utf-8']]"));
+assert(server.includes("['/sitemap.xml', ['sitemap.xml','application/xml; charset=utf-8']]"));
+assert(server.includes("['/llms.txt', ['llms.txt','text/plain; charset=utf-8']]"));
+assert(llms.includes('$497')&&llms.includes('$2,500')&&llms.includes('$2,003'));
+assert(llms.includes('does not guarantee additional revenue'));
+
 console.log('PASS: statewide Texas coverage, $497 checkout, consent, catalog, and safeguards');
