@@ -98,6 +98,8 @@ assert(server.includes("if (path === '/integrationz')"));
 assert(server.includes("endpoint.pathname.replace(/\\/intake$/, '/handshake')"));
 assert(server.includes("'X-Acquisition-Token':acquisitionToken"));
 assert(server.includes("redirect:'manual'"),'Secret-bearing handshake may not follow redirects');
+assert(server.includes("body:JSON.stringify(clean),redirect:'manual',signal:AbortSignal.timeout(9500)"),
+       'Secret-bearing acquisition POST may not follow redirects');
 assert(server.includes("credential_match:true"));
 assert(server.includes("customer_intake:'not_tested'"));
 assert(server.includes("read_only===true"));
