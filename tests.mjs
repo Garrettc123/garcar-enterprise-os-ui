@@ -147,7 +147,7 @@ assert(deliverable.includes('No rows. Buyer-owned input is required.'));
 assert(deliverable.includes('No first-contact timestamp is not proof that nobody called.'));
 assert(deliverable.includes('https://buy.stripe.com/8x2eVddjf0hQ86Tf0f43S2h'));
 assert(!deliverable.includes('samantha@') && !deliverable.includes('example.com'));
-assert.equal(emptyColumns.trim().split('\\n').length,1);
+assert.equal(emptyColumns.trim().split(String.fromCharCode(10)).length,1);
 assert.equal(emptyColumns.trim().split(',').length,12);
 for (const col of ['rank','lead_id','class','received_at','contact_latency_minutes','hours_since_received','score','contactable','channel','value','reason','draft_action'])
   assert(emptyColumns.includes(col), 'Missing engine CSV column '+col);
