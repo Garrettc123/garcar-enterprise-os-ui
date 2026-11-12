@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { isExpectedReviewCheckoutUrl, REVIEW_CHECKOUT_BASE } from './checkout-validation.mjs';
 import { clientIp, createRateLimiter } from './rate-limit.mjs';
 import { readFileSync } from 'node:fs';
 const get=(name)=>readFileSync(new URL(name,import.meta.url),'utf8');
@@ -24,7 +25,7 @@ assert(home.includes('src="/acquisition.js"'));
 assert(server.includes("handleAcquisition(req,res)"));
 assert(server.includes("acquisitionToken.length<32"));
 assert(server.includes("String(req.headers['content-type']"));
-assert(server.includes("startsWith('https://buy.stripe.com/')"));
+assert(server.includes("isExpectedReviewCheckoutUrl(data.checkout_url,data.lead_id)"));
 assert(acquisition.includes("credentials: 'same-origin'"));
 assert(acquisition.includes('contact_permission'));
 assert(privacy.includes('promotional updates are optional'));
@@ -110,5 +111,26 @@ assert(server.includes("if(integrationInFlight) return integrationInFlight"));
 assert(server.includes("if (path === '/readyz')"),'Existing config-only readiness must remain');
 assert(server.includes("if(path==='/api/acquisition')return handleAcquisition(req,res);"),
        'Actual inquiry intake must remain distinct from read-only check');
+
+
+// Exact offer AND checkout-to-lead binding: never accept another price/link or
+// a different buyer reference from an upstream response, even from Stripe.
+const sampleLead = 'lead_' + 'a'.repeat(32);
+const validCheckout = REVIEW_CHECKOUT_BASE + '?client_reference_id=' + sampleLead;
+assert.equal(isExpectedReviewCheckoutUrl(validCheckout, sampleLead), true);
+for (const bad of [
+  REVIEW_CHECKOUT_BASE,
+  REVIEW_CHECKOUT_BASE + '?client_reference_id=lead_' + 'b'.repeat(32),
+  REVIEW_CHECKOUT_BASE + '?client_reference_id=' + sampleLead + '&other=1',
+  validCheckout + '&client_reference_id=' + sampleLead,
+  validCheckout + '#redirect',
+  'https://buy.stripe.com/8x2bJ17YV1lU86T4lB43S2D?client_reference_id=' + sampleLead,
+  'https://buy.stripe.com.evil.example/8x2eVddjf0hQ86Tf0f43S2h?client_reference_id=' + sampleLead,
+  'https://buyer:secret@buy.stripe.com/8x2eVddjf0hQ86Tf0f43S2h?client_reference_id=' + sampleLead,
+  'javascript:alert(1)',
+  null
+]) assert.equal(isExpectedReviewCheckoutUrl(bad, sampleLead), false);
+assert.equal(isExpectedReviewCheckoutUrl(validCheckout, 'lead_' + 'b'.repeat(32)), false);
+assert.equal(isExpectedReviewCheckoutUrl(validCheckout, 'invalid'), false);
 
 console.log('PASS: statewide Texas coverage, $497 checkout, consent, catalog, ingress safeguards, and read-only bridge diagnostic');
