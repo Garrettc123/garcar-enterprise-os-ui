@@ -1,5 +1,6 @@
 import http from 'node:http';
 import { createRateLimiter } from './rate-limit.mjs';
+import { isExpectedReviewCheckoutUrl } from './checkout-validation.mjs';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -134,7 +135,7 @@ async function handleAcquisition(req,res){
     if(!remote.ok)return writeJson(res,503,{error:'acquisition_temporarily_unavailable'});
     const data=await remote.json();
     if(data?.accepted!==true || !/^lead_[a-f0-9]{32}$/.test(data.lead_id||'') ||
-       !String(data.checkout_url||'').startsWith('https://buy.stripe.com/'))
+       !isExpectedReviewCheckoutUrl(data.checkout_url,data.lead_id))
       return writeJson(res,502,{error:'acquisition_invalid_response'});
     void trackConfirmedInquiry(data.lead_id,clean);
     return writeJson(res,201,{accepted:true,lead_id:data.lead_id,
