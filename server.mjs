@@ -15,6 +15,9 @@ const routes = new Map([
   ['/style.css', ['style.css','text/css; charset=utf-8']],
   ['/favicon.svg', ['favicon.svg','image/svg+xml']],
   ['/acquisition.js', ['acquisition.js','text/javascript; charset=utf-8']],
+  ['/workbench', ['workbench.html','text/html; charset=utf-8']],
+  ['/workbench.css', ['workbench.css','text/css; charset=utf-8']],
+  ['/workbench.js', ['workbench.js','text/javascript; charset=utf-8']],
   ['/robots.txt', ['robots.txt','text/plain; charset=utf-8']],
   ['/sitemap.xml', ['sitemap.xml','application/xml; charset=utf-8']],
   ['/llms.txt', ['llms.txt','text/plain; charset=utf-8']],
@@ -175,7 +178,7 @@ http.createServer(async (req,res)=>{
   if (!file) {res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8',...headers});return res.end('Not found');}
   try {
     const body = await readFile(join(root,file[0]));
-    res.writeHead(200, {'Content-Type':file[1], 'Cache-Control':path==='/style.css'||path==='/favicon.svg'?'public, max-age=600':'no-store',...headers});
+    res.writeHead(200, {'Content-Type':file[1], 'Cache-Control':path==='/style.css'||path==='/favicon.svg'?'public, max-age=600':'no-store',...(path==='/workbench'?{'X-Robots-Tag':'noindex, nofollow, noarchive'}:{}),...headers});
     if(req.method==='HEAD')return res.end();
     res.end(body);
   } catch {
