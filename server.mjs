@@ -129,7 +129,7 @@ async function handleAcquisition(req,res){
     const remote=await fetch(acquisitionEndpoint,{
       method:'POST',
       headers:{'Content-Type':'application/json','X-Acquisition-Token':acquisitionToken},
-      body:JSON.stringify(clean),signal:AbortSignal.timeout(9500)});
+      body:JSON.stringify(clean),redirect:'manual',signal:AbortSignal.timeout(9500)});
     if(remote.status===422)return writeJson(res,422,{error:'invalid_inquiry'});
     if(!remote.ok)return writeJson(res,503,{error:'acquisition_temporarily_unavailable'});
     const data=await remote.json();
