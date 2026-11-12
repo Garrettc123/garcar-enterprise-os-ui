@@ -143,6 +143,8 @@ assert(server.includes("'/deliverable'"));
 assert(server.includes("'/callback-sheet-columns.csv'"));
 assert(home.includes('href="/deliverable"'));
 assert(deliverable.includes('NO CUSTOMER RECORDS DISPLAYED'));
+assert(!deliverable.includes('<style>'), 'Buyer preview must respect style-src self CSP');
+assert(get('./style.css').includes('.proof-layout'), 'Buyer preview CSS must be served externally');
 assert(deliverable.includes('No rows. Buyer-owned input is required.'));
 assert(deliverable.includes('No first-contact timestamp is not proof that nobody called.'));
 assert(deliverable.includes('https://buy.stripe.com/8x2eVddjf0hQ86Tf0f43S2h'));
