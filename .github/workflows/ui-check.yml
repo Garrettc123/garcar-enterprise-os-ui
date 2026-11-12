@@ -3,10 +3,24 @@ on:
   push:
     branches: [main]
   pull_request:
+permissions:
+  contents: read
 jobs:
   html:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: index exists
-        run: test -f index.html && grep -q 'Cash is not claimed' index.html
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate application syntax and regression coverage
+        run: |
+          node --check server.mjs
+          node --check workbench.js
+          npm test
+      - name: Preserve public checkout and isolated internal workflow
+        run: |
+          test -f index.html
+          grep -q 'BUY THE FOLLOW-UP REVIEW' index.html
+          grep -q 'noindex,nofollow,noarchive' workbench.html
+          ! grep -q '<loc>https://garcar-enterprise.up.railway.app/workbench</loc>' sitemap.xml
