@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive"><meta name="theme-color" content="#10110f">
+<title>Revenue Workflow · Garcar Enterprise</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/workbench.css">
+<script type="module" src="/workbench.js"></script>
+</head><body>
+<div class="shell">
+<aside class="sidebar" aria-label="Workflow navigation">
+  <a class="brand" href="/" title="Return to Garcar Enterprise"><span class="brand-icon">G<span>·</span></span><span>GARCAR <em>/ ENTERPRISE</em><small>REVENUE WORKFLOW</small></span></a>
+  <div class="rail-label">ONE PAID OFFER / ONE WORKFLOW</div>
+  <nav class="nav" id="nav">
+    <button data-view="intake" class="active"><span class="nav-index">01</span><span>Offer & intake</span></button>
+    <button data-view="review"><span class="nav-index">02</span><span>Callback review</span></button>
+    <button data-view="outreach"><span class="nav-index">03</span><span>Outreach approval</span></button>
+    <button data-view="delivery"><span class="nav-index">04</span><span>Delivery & payment</span></button>
+  </nav>
+  <div class="rail-bottom"><div class="pulse"><i></i> ZERO-HUMAN PLATFORM / GOVERNED</div><p>Operator workspace. Nothing is automatically sent, charged, posted, or synchronized.</p><a href="/">← Public sales page</a></div>
+</aside>
+<main class="main">
+  <header class="toolbar"><div class="breadcrumbs">GARCAR ENTERPRISE <span>/</span> REVENUE CONTROL <span>/</span> <strong>CANONICAL OFFER</strong></div><div class="toolbar-actions"><span class="chip chip-muted">BROWSER-LOCAL · UNSYNCED</span><button class="btn btn-outline btn-small" id="export-backup">Export backup</button></div></header>
+  <div class="content">
+    <div class="heading"><div><div class="overline">OPERATOR WORKSPACE <span>— EVIDENCE FIRST</span></div><h1 id="page-title">Offer & intake</h1><p id="page-description">Manage one buyer-owned lead review from intake to a documented payment outcome.</p></div><div class="heading-meta"><span>WORKFLOW STATE</span><strong id="deal-state">MISSING · NO BUYER</strong></div></div>
+    <div class="warning" role="note"><strong>Privacy boundary</strong><span>Lead files remain in this browser only. Nothing is uploaded to Garcar, Stripe, a CRM, or an agent. Browser storage is unencrypted; use a trusted device and do not import data without the buyer's authorization.</span></div>
+    <section class="overview" aria-label="Evidence summary">
+      <div class="metric"><div class="metric-label">Imported leads <span id="metric-leads-state" class="smallstatus">MISSING</span></div><div id="metric-leads" class="metric-number">—</div><div class="metric-foot">Buyer-owned rows only</div></div>
+      <div class="metric"><div class="metric-label">Priority callbacks <span id="metric-priority-state" class="smallstatus">MISSING</span></div><div id="metric-priority" class="metric-number">—</div><div class="metric-foot">Sat, stalled, late or recent</div></div>
+      <div class="metric"><div class="metric-label">Outreach clearance <span id="metric-outreach-state" class="smallstatus">BLOCKED</span></div><div id="metric-outreach" class="metric-number metric-word">Blocked</div><div class="metric-foot">Explicit operator approval</div></div>
+      <div class="metric"><div class="metric-label">Payment evidence <span id="metric-payment-state" class="smallstatus">UNVERIFIED</span></div><div id="metric-payment" class="metric-number metric-word">Not recorded</div><div class="metric-foot">No live Stripe reconciliation</div></div>
+    </section>
+    <section id="view-intake" class="view">
+      <div class="section-top"><div><div class="section-kicker">01 / COMMERCIAL FOUNDATION</div><h2>One canonical offer. Two buyer variants.</h2><p>Keep the service consistent; change the positioning and agreed price by buyer type.</p></div><span class="chip">OFFER · REV-497</span></div>
+      <div class="split">
+        <div class="panel"><div class="panel-head"><h3>Active offer</h3><span class="muted-label">EDITABLE</span></div>
+          <div class="two"><label>Buyer segment<select id="segment"><option value="real_estate">Real estate</option><option value="contractor">Contractor / home services</option></select></label><label>Price, USD<input id="price" type="number" min="0" max="100000" step="1" inputmode="decimal"></label></div>
+          <label>Offer name<input id="offer-name" maxlength="100"></label>
+          <label>Scope / deliverable<textarea id="offer-scope" rows="3" maxlength="800"></textarea></label>
+          <div class="notice"><strong id="offer-context-title">Public offer reference</strong><p id="offer-context">The current real-estate page advertises a $497 one-time follow-up review. Editing this internal price does not change Stripe checkout.</p></div>
+          <button id="save-offer" class="btn btn-primary">Save offer details</button>
+        </div>
+        <div class="panel"><div class="panel-head"><h3>Buyer workspaces</h3><span class="muted-label">REUSABLE LISTS</span></div>
+          <label>Open a buyer / lead list<select id="workspace-select"><option value="">Create a new workspace</option></select></label>
+          <div class="two"><label>Buyer / company<input id="buyer-name" maxlength="120" placeholder="Enter actual buyer"></label><label>List name<input id="list-name" maxlength="100" placeholder="e.g. October CRM export"></label></div>
+          <label>Source CRM / file description<input id="source-name" maxlength="160" placeholder="Existing CRM and export period"></label>
+          <label class="tickline"><input type="checkbox" id="buyer-authorized">I confirm that the buyer owns or lawfully controls this list and has authorized this review.</label>
+          <label class="tickline"><input type="checkbox" id="storage-consent">I authorize unencrypted storage of these rows on this trusted browser/device so the list can be reused.</label>
+          <div class="inline-actions"><button class="btn btn-primary" id="save-workspace">Save buyer workspace</button><button class="btn btn-outline" id="new-workspace">New workspace</button><button class="btn btn-danger" id="delete-workspace">Delete selected</button></div>
+          <p class="helper" id="workspace-warning">No buyer workspace selected. This is not evidence of a customer or sale.</p>
+        </div>
+      </div>
+      <div class="panel import-panel"><div class="panel-head"><div><h3>Import buyer-owned CSV</h3><p>Recognizes common CRM fields including lead ID, received date, first contact, last activity, status, phone and email.</p></div><span class="chip chip-muted">NO SERVER UPLOAD</span></div>
+        <div class="import-bar"><label class="file-btn" for="lead-file">Choose CSV file <input id="lead-file" type="file" accept=".csv,text/csv"></label><span id="filename">No file selected</span><button class="btn btn-outline" id="export-original">Export original rows</button></div><p class="helper" id="import-result">Create a buyer workspace and affirm authorization before importing. Files over 2 MB or 3,000 rows are rejected.</p>
+      </div>
+    </section>
+    <section id="view-review" class="view hidden">
+      <div class="section-top"><div><div class="section-kicker">02 / DETERMINISTIC PRIORITY</div><h2>Callback-priority review</h2><p>Each reason is computed from imported source fields—not generated sales claims or guessed contact history.</p></div><button class="btn btn-primary" id="export-priority">Download priority CSV</button></div>
+      <div class="panel"><div class="review-controls"><label>Response window (minutes)<input id="sla" type="number" min="1" max="10080" value="60"></label><label>Stall threshold (days)<input id="stall" type="number" min="1" max="365" value="7"></label><label>Filter<select id="review-filter"><option value="all">All classifications</option><option value="priority">Priority only</option><option value="unknown">Missing evidence</option></select></label><button class="btn btn-outline" id="recalculate">Recalculate</button></div><p class="helper">Method is aligned with the Callback Clock classification and scoring rules. Timestamp values without a timezone are interpreted as UTC. This browser report is not a verified execution of the Python engine.</p></div>
+      <div class="table-panel"><div class="table-title"><strong id="review-count">No lead data</strong><span>Decision trace: class · evidence · next action</span></div><div class="table-scroll"><table><thead><tr><th>Rank</th><th>Lead reference</th><th>Class</th><th>Score</th><th>Evidence-based reason</th><th>Next action</th><th>Evidence</th></tr></thead><tbody id="lead-table"><tr><td colspan="7" class="empty">No buyer-owned CSV imported. Nothing has been classified.</td></tr></tbody></table></div></div>
+    </section>
+    <section id="view-outreach" class="view hidden">
+      <div class="section-top"><div><div class="section-kicker">03 / HUMAN APPROVAL GATE</div><h2>Draft. Review. Approve. Then copy.</h2><p>No sending integration exists here. Each edited draft requires new, explicit approval before the copy action is unlocked.</p></div><span class="chip chip-blocked">OUTBOUND DISABLED</span></div>
+      <div class="split"><div class="panel"><div class="panel-head"><h3>Buyer message draft</h3><span id="approval-badge" class="chip chip-muted">UNVERIFIED</span></div><label>Recipient / target (operator reference)<input id="draft-recipient" maxlength="160" placeholder="Person or company from authorized context"></label><label>Subject<input id="draft-subject" maxlength="160" placeholder="Follow-up review"></label><label>Message<textarea id="draft-body" rows="11" maxlength="5000" placeholder="Write an evidence-based outreach message. No fabricated outcomes."></textarea></label><div class="inline-actions"><button class="btn btn-outline" id="create-draft">Prepare offer draft</button><button class="btn btn-primary" id="approve-draft">Approve exact draft</button><button class="btn btn-outline" id="copy-draft" disabled>Copy approved text</button></div><p class="helper" id="approval-detail">Editing a field revokes prior approval. Approval does not send a message.</p></div>
+        <div class="panel"><div class="panel-head"><h3>Outreach status</h3><span class="muted-label">MANUAL EVIDENCE</span></div><label>Status<select id="outreach-status"><option value="not_sent">Not sent</option><option value="ready">Prepared / not sent</option><option value="sent">Sent outside this app</option><option value="replied">Buyer replied</option><option value="blocked">Blocked</option></select></label><label>Reference to evidence / activity log<input id="outreach-evidence" maxlength="250" placeholder="Receipt, CRM activity ID, dated note"></label><button class="btn btn-outline" id="save-outreach">Record outreach status</button><div class="notice"><strong>Approval policy</strong><p>All drafts begin blocked. A manual approval records the exact text and time. Copy is disabled until approval. External sending remains outside this application and must have its own authorization.</p></div></div></div>
+    </section>
+    <section id="view-delivery" class="view hidden">
+      <div class="section-top"><div><div class="section-kicker">04 / CLIENT FULFILLMENT</div><h2>Delivery, revisions & payment</h2><p>Track completion against a defined scope, then reconcile payment using evidence—not inferred revenue.</p></div><span class="chip">ORDER RECORD</span></div>
+      <div class="split"><div class="panel"><div class="panel-head"><h3>Delivery checklist</h3><span class="muted-label">PER BUYER</span></div><div id="delivery-checklist"></div><label>Delivery status<select id="delivery-status"><option value="not_started">Not started</option><option value="in_progress">In progress</option><option value="ready">Ready for buyer review</option><option value="delivered">Delivered outside this app</option></select></label><label>Delivery evidence / location<input id="delivery-evidence" maxlength="250" placeholder="File version, timestamp, client receipt"></label><button class="btn btn-outline" id="save-delivery">Save delivery record</button><p class="helper">A checked item documents operator progress. Buyer receipt and acceptance remain unverified without source evidence.</p></div>
+      <div class="panel"><div class="panel-head"><h3>Payment & customer status</h3><span class="muted-label">NO PAYMENT WRITES</span></div><div class="two"><label>Payment status<select id="payment-status"><option value="unverified">Unverified</option><option value="pending">Pending</option><option value="paid">Paid — operator recorded</option><option value="refunded">Refunded</option><option value="blocked">Blocked</option></select></label><label>Payment amount, USD<input id="payment-amount" type="number" min="0" step="0.01" inputmode="decimal"></label></div><label>Receipt / transaction evidence<input id="payment-reference" maxlength="250" placeholder="Verified Stripe ID or bank receipt reference"></label><label>Payment date<input id="payment-date" type="date"></label><label class="tickline"><input type="checkbox" id="payment-verified">I personally checked this payment against the referenced provider or receipt.</label><button class="btn btn-primary" id="save-payment">Save payment record</button><div id="paid-customer" class="notice"><strong>Payment unverified</strong><p>Paid-customer status requires a receipt/reference, date, amount and explicit manual verification.</p></div></div></div>
+      <div class="panel revision-panel"><div class="panel-head"><div><h3>Revision log</h3><p>Each request is appended to this buyer workspace; no fictitious requests appear.</p></div><span id="revision-count" class="chip chip-muted">0 LOGGED</span></div><div class="revision-entry"><label>Buyer request or change description<textarea id="revision-note" rows="2" maxlength="1200" placeholder="Describe the actual request, source and agreed change"></textarea></label><label>Evidence reference<input id="revision-evidence" maxlength="200" placeholder="Email date, ticket, approval ID"></label><button class="btn btn-outline" id="add-revision">Add revision</button></div><div id="revision-log" class="revision-log"><div class="empty">No revisions recorded.</div></div></div>
+      <div class="table-panel" aria-label="Paid customer tracker"><div class="table-title"><strong>Buyer / paid-customer tracker</strong><span id="customer-summary">No buyer records</span></div><div class="table-scroll"><table><thead><tr><th>Buyer</th><th>Variant</th><th>Rows</th><th>Delivery</th><th>Payment</th><th>Record status</th></tr></thead><tbody id="customer-table"><tr><td colspan="6" class="empty">No customer records.</td></tr></tbody></table></div></div>
+    </section>
+    <footer class="app-footer"><span>GARCAR ENTERPRISE LLC · REVENUE CONTROL EXTENSION</span><span id="save-status">No stored records</span><button class="quiet" id="clear-all">Erase all browser-local workspaces</button></footer>
+  </div>
+</main></div>
+<div id="toast" role="status" aria-live="polite"></div>
+</body></html>
