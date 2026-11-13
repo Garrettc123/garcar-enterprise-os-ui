@@ -51,9 +51,9 @@ const canonical='https://garcar-enterprise.up.railway.app';
 assert(robots.includes('User-agent: *'));
 assert(robots.includes('User-agent: OAI-SearchBot'));
 assert(robots.includes('Sitemap: '+canonical+'/sitemap.xml'));
-const indexedPaths=['/','/more','/support','/privacy','/terms'];
+const indexedPaths=['/','/more','/deliverable','/support','/privacy','/terms'];
 for(const path of indexedPaths)assert(sitemap.includes('<loc>'+canonical+path+'</loc>'),'Sitemap missing '+path);
-assert.equal((sitemap.match(/<url>/g)||[]).length,5,'Sitemap must contain five canonical pages');
+assert.equal((sitemap.match(/<url>/g)||[]).length,6,'Sitemap must contain six canonical pages including the deliverable preview');
 assert(!sitemap.includes('<loc>'+canonical+'/start</loc>'),'Post-checkout instructions must not be in the sitemap');
 assert(server.includes("['/robots.txt', ['robots.txt','text/plain; charset=utf-8']]"));
 assert(server.includes("['/sitemap.xml', ['sitemap.xml','application/xml; charset=utf-8']]"));
@@ -134,3 +134,22 @@ assert.equal(isExpectedReviewCheckoutUrl(validCheckout, 'lead_' + 'b'.repeat(32)
 assert.equal(isExpectedReviewCheckoutUrl(validCheckout, 'invalid'), false);
 
 console.log('PASS: statewide Texas coverage, $497 checkout, consent, catalog, ingress safeguards, and read-only bridge diagnostic');
+
+
+// Public evidence-only buyer preview; no fake leads or duplicate checkout on home.
+const deliverable=get('./deliverable.html');
+const emptyColumns=get('./callback-sheet-columns.csv');
+assert(server.includes("'/deliverable'"));
+assert(server.includes("'/callback-sheet-columns.csv'"));
+assert(home.includes('href="/deliverable"'));
+assert(deliverable.includes('NO CUSTOMER RECORDS DISPLAYED'));
+assert(!deliverable.includes('<style>'), 'Buyer preview must respect style-src self CSP');
+assert(get('./style.css').includes('.proof-layout'), 'Buyer preview CSS must be served externally');
+assert(deliverable.includes('No rows. Buyer-owned input is required.'));
+assert(deliverable.includes('No first-contact timestamp is not proof that nobody called.'));
+assert(deliverable.includes('https://buy.stripe.com/8x2eVddjf0hQ86Tf0f43S2h'));
+assert(!deliverable.includes('samantha@') && !deliverable.includes('example.com'));
+assert.equal(emptyColumns.trim().split(String.fromCharCode(10)).length,1);
+assert.equal(emptyColumns.trim().split(',').length,12);
+for (const col of ['rank','lead_id','class','received_at','contact_latency_minutes','hours_since_received','score','contactable','channel','value','reason','draft_action'])
+  assert(emptyColumns.includes(col), 'Missing engine CSV column '+col);

@@ -3,10 +3,20 @@ on:
   push:
     branches: [main]
   pull_request:
+
+permissions:
+  contents: read
+
 jobs:
   html:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: index exists
-        run: test -f index.html && grep -q 'Cash is not claimed' index.html
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate JavaScript syntax
+        run: node --check server.mjs && node --check tests.mjs
+      - name: Run application regression suite
+        run: npm test
