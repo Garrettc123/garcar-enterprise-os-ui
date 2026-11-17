@@ -35,8 +35,9 @@ export function validateObservedStripeOffers(registry, canonicalUrl) {
         || row.site_checkout_allowed!==rule.site
         || row.fulfillment_verified!==false || typeof row.link_active!=='boolean')
       throw new Error('Offer price, cadence or fulfillment mismatch: '+row.offer_id);
+    const prefixes={link:'plink_',price:'price_',product:'prod_'};
     for (const [type,key] of [['link','payment_link_id'],['price','price_id'],['product','product_id']]) {
-      if (!ID.test(String(row[key])) || !String(row[key]).startsWith(type==='link'?'plink_':type+'_')
+      if (!ID.test(String(row[key])) || !String(row[key]).startsWith(prefixes[type])
           || seen[type].has(row[key]))
         throw new Error('Invalid or reused '+type+' ID');
       seen[type].add(row[key]);
