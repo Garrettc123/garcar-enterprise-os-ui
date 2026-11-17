@@ -18,6 +18,18 @@ assert(home.includes('href="/support"'));
 assert(support.includes('Do not email raw CRM lead exports'));
 assert(start.includes('does not confirm payment'));
 const acquisition=get('./acquisition.js'),privacy=get('./privacy.html');
+// Source-attributed checkout should be easy to find; direct purchase stays available.
+assert(home.includes('class="primary-action" href="#request-review"'),
+  'Hero must direct buyers to first-party attribution form');
+assert(home.includes('href="https://buy.stripe.com/8x2eVddjf0hQ86Tf0f43S2h"'),
+  'Direct one-time Stripe checkout remains available for ready buyers');
+assert(home.includes('Direct checkout is not automatically linked to an inquiry'),
+  'Unattributed purchase requires truthful manual reconciliation disclosure');
+assert.equal((home.match(/buy\\.stripe\\.com/g)||[]).length,1,
+  'Only the canonical one-time offer should appear as a direct checkout URL');
+assert(home.includes('The form is free to submit') &&
+  home.includes('does not send an automated sales message'),
+  'Inquiry must not suggest a charge or unsolicited messaging');
 assert(home.includes('id="acquisition-form"'));
 assert(home.includes('name="contact_permission"'));
 assert(home.includes('name="marketing_consent"'));
