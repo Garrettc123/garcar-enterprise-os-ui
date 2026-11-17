@@ -25,7 +25,7 @@ assert(home.includes('href="https://buy.stripe.com/8x2eVddjf0hQ86Tf0f43S2h"'),
   'Direct one-time Stripe checkout remains available for ready buyers');
 assert(home.includes('Direct checkout is not automatically linked to an inquiry'),
   'Unattributed purchase requires truthful manual reconciliation disclosure');
-assert.equal((home.match(/buy\\.stripe\\.com/g)||[]).length,1,
+assert.equal((home.match(/buy\.stripe\.com/g)||[]).length,1,
   'Only the canonical one-time offer should appear as a direct checkout URL');
 assert(home.includes('The form is free to submit') &&
   home.includes('does not send an automated sales message'),
