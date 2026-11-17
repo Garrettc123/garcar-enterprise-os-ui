@@ -153,3 +153,6 @@ assert.equal(emptyColumns.trim().split(String.fromCharCode(10)).length,1);
 assert.equal(emptyColumns.trim().split(',').length,12);
 for (const col of ['rank','lead_id','class','received_at','contact_latency_minutes','hours_since_received','score','contactable','channel','value','reason','draft_action'])
   assert(emptyColumns.includes(col), 'Missing engine CSV column '+col);
+
+// Evidence-only Stripe offer audit. This runs offline and never charges a card.
+await import('./audit/offer-registry.test.mjs');
