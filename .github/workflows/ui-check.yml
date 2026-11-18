@@ -17,6 +17,6 @@ jobs:
         with:
           node-version: '22'
       - name: Validate JavaScript syntax
-        run: node --check server.mjs && node --check tests.mjs
+        run: node --check server.mjs && node --check tests.mjs && node --check tests-acquisition-http.mjs
       - name: Run application regression suite
         run: npm test
