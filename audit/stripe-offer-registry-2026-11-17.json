@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "audit": "read_only_live_stripe_inventory",
+  "observed_date_utc": "2026-11-17",
+  "stripe_context": "acct_1SS3dpFKGbk21LK5",
+  "status": "NOT_RELEASE_APPROVED",
+  "website_offer_id": "MLS-497",
+  "policy": {
+    "never_conflate_equal_amounts_with_different_intervals": true,
+    "require_owner_identity_security_clearance": true,
+    "require_signed_webhook_and_durable_receipt": true,
+    "require_authenticated_fulfillment": true,
+    "no_automatic_price_updates": true
+  },
+  "offers": [
+    {
+      "offer_id": "MLS-497",
+      "name": "Mark the leads that sat",
+      "product_id": "prod_VF79GXA9nf3MQe",
+      "price_id": "price_1UEcuyFKGbk21LK5mqhbKQWZ",
+      "payment_link_id": "plink_1UEcv4FKGbk21LK57hRic0dR",
+      "payment_link_url": "https://buy.stripe.com/8x2eVddjf0hQ86Tf0f43S2h",
+      "price_minor": 49700,
+      "currency": "usd",
+      "price_type": "one_time",
+      "billing_interval": null,
+      "link_active": true,
+      "site_checkout_allowed": true,
+      "fulfillment_verified": false
+    },
+    {
+      "offer_id": "RRS-497-WEEK",
+      "name": "Revenue Recovery Sprint",
+      "product_id": "prod_UHCZpvGyS9EM4o",
+      "price_id": "price_1TVcOTFKGbk21LK5unptgIl4",
+      "payment_link_id": "plink_1UDHyxFKGbk21LK59GhyEXqV",
+      "payment_link_url": "https://buy.stripe.com/00w00jfrn7Ki86Tf0f43S2f",
+      "price_minor": 49700,
+      "currency": "usd",
+      "price_type": "recurring",
+      "billing_interval": "week",
+      "link_active": true,
+      "site_checkout_allowed": false,
+      "fulfillment_verified": false
+    },
+    {
+      "offer_id": "AGE-1497-MO",
+      "name": "Garcar AI Growth Engine",
+      "product_id": "prod_UHCZXk9i0Epsco",
+      "price_id": "price_1TVcMJFKGbk21LK5MpO3QgNM",
+      "payment_link_id": "plink_1UDHz0FKGbk21LK5iTBV0ojc",
+      "payment_link_url": "https://buy.stripe.com/fZufZha737Ki1Ivf0f43S2g",
+      "price_minor": 149700,
+      "currency": "usd",
+      "price_type": "recurring",
+      "billing_interval": "month",
+      "link_active": true,
+      "site_checkout_allowed": false,
+      "fulfillment_verified": false
+    },
+    {
+      "offer_id": "LLA-47-48H",
+      "name": "Lead Leak Audit — 48-Hour Map",
+      "product_id": "prod_VRv4tOLnFT22Ft",
+      "price_id": "price_1UR1E0FKGbk21LK52r7KeXT2",
+      "payment_link_id": "plink_1UR1E1FKGbk21LK5OGHNlbJ8",
+      "payment_link_url": "https://buy.stripe.com/bJe6oH7YV8Om9aXg4j43S2z",
+      "price_minor": 4700,
+      "currency": "usd",
+      "price_type": "one_time",
+      "billing_interval": null,
+      "link_active": false,
+      "site_checkout_allowed": false,
+      "fulfillment_verified": false
+    }
+  ],
+  "known_conflicts": [
+    {
+      "payment_link_id": "plink_1UR1CAFKGbk21LK5Z02t1ITK",
+      "link_active": false,
+      "claimed_metadata_sku": "LLA-001",
+      "actual_price_minor": 700,
+      "description": "The Lead Leak Audit PDF",
+      "reason": "Not a $47 service; do not publish as Lead Leak Audit service checkout"
+    }
+  ],
+  "webhook_inventory": {
+    "enabled_endpoint_count": 6,
+    "full_route_reconciliation_completed": false,
+    "overlapping_event_subscriptions_present": true
+  },
+  "buyer_data_transfer": {
+    "post_payment_page": "/start",
+    "csv_template_path": "/callback-sheet-columns.csv",
+    "authenticated_csv_upload_verified": false
+  },
+  "evidence_boundary": "Stripe link status and price fields were read from live Stripe API; receipt, signature delivery, 2FA, and fulfillment were not certified. Registry is a snapshot, not runtime truth."
+}
