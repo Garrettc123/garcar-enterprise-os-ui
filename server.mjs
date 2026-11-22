@@ -8,6 +8,8 @@ const root = dirname(fileURLToPath(import.meta.url));
 const routes = new Map([
   ['/', ['index.html','text/html; charset=utf-8']],
   ['/more', ['more.html','text/html; charset=utf-8']],
+  ['/products', ['products.html','text/html; charset=utf-8']],
+  ['/ai-directory', ['ai-directory.html','text/html; charset=utf-8']],
   ['/start', ['start.html','text/html; charset=utf-8']],
   ['/deliverable', ['deliverable.html','text/html; charset=utf-8']],
   ['/callback-sheet-columns.csv', ['callback-sheet-columns.csv','text/csv; charset=utf-8']],
@@ -15,6 +17,8 @@ const routes = new Map([
   ['/privacy', ['privacy.html','text/html; charset=utf-8']],
   ['/terms', ['terms.html','text/html; charset=utf-8']],
   ['/style.css', ['style.css','text/css; charset=utf-8']],
+  ['/catalog.css', ['catalog.css','text/css; charset=utf-8']],
+  ['/directory.js', ['directory.js','text/javascript; charset=utf-8']],
   ['/favicon.svg', ['favicon.svg','image/svg+xml']],
   ['/acquisition.js', ['acquisition.js','text/javascript; charset=utf-8']],
   ['/robots.txt', ['robots.txt','text/plain; charset=utf-8']],
@@ -177,7 +181,7 @@ http.createServer(async (req,res)=>{
   if (!file) {res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8',...headers});return res.end('Not found');}
   try {
     const body = await readFile(join(root,file[0]));
-    res.writeHead(200, {'Content-Type':file[1], 'Cache-Control':path==='/style.css'||path==='/favicon.svg'?'public, max-age=600':'no-store',...headers});
+    res.writeHead(200, {'Content-Type':file[1], 'Cache-Control':path==='/style.css'||path==='/catalog.css'||path==='/directory.js'||path==='/favicon.svg'?'public, max-age=600':'no-store',...headers});
     if(req.method==='HEAD')return res.end();
     res.end(body);
   } catch {
