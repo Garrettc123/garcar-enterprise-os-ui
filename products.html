@@ -28,8 +28,36 @@
 <article class="catalog-tile"><span class="catalog-status catalog-status--scope">Quote required</span><h3>Business Automation</h3><p>CRM workflows, lead intake, reporting, process routing, operational data pipelines and approval-bound notifications.</p></article>
 <article class="catalog-tile"><span class="catalog-status catalog-status--scope">Quote required</span><h3>Developer Infrastructure</h3><p>Python/FastAPI APIs, cloud integrations, Docker, CI, deployment automation and software reliability support.</p></article>
 <article class="catalog-tile"><span class="catalog-status catalog-status--scope">Verification required</span><h3>Software Licensing &amp; Delivery</h3><p>Evaluate eligible code assets for scoped source delivery or licensing after ownership, security, acceptance and licensing terms are checked.</p></article>
-</div><a class="catalog-link" href="mailto:gwc2780@gmail.com?subject=Garcar%20Enterprise%20custom%20software%20scope">Request a custom project scope</a></section>
+</div><a class="catalog-link" href="#scope-request">Request a custom project scope</a></section>
 <section class="catalog-section" id="digital-products" aria-labelledby="digital-heading"><p class="smalllabel">DIGITAL PRODUCT CATALOG</p><h2 id="digital-heading">Tools, templates and developer kits.</h2><p class="catalog-lead">The broader catalog includes cleaning, pool service and handyman spreadsheets, lead-recovery kits, developer starters and operations templates. These remain catalog references until a particular SKU, current price, file package and fulfillment path are independently verified. No instant-purchase claim is made.</p><div class="catalog-actions"><a class="catalog-cta" href="/more">View catalog archive <span aria-hidden="true">↗</span></a><a class="catalog-link" href="/ai-directory">Explore Garcar AI systems</a></div></section>
-<section class="catalog-section" aria-labelledby="request-heading"><p class="smalllabel">BUYER NEXT STEP</p><h2 id="request-heading">Need a different outcome?</h2><p>Send a concise description of the workflow, current tools, access requirements and required result. We can confirm feasibility and scope without receiving customer records or credentials by email.</p><a class="catalog-cta" href="mailto:gwc2780@gmail.com?subject=Garcar%20Enterprise%20project%20inquiry">Contact Garcar <span aria-hidden="true">↗</span></a></section>
+<section class="catalog-section" id="scope-request" aria-labelledby="scope-request-heading">
+<p class="smalllabel">CUSTOM BUILD / BUYER QUALIFICATION</p><h2 id="scope-request-heading">Prepare a scoped project inquiry.</h2>
+<p>Share the business result you need, not confidential files. This short form prepares an email draft locally in your browser. It does not transmit data to Garcar or create a customer record until you choose to send the message.</p>
+<form id="scope-form" class="scope-form">
+  <label for="scope-service">What kind of work?<select id="scope-service" name="service" required>
+    <option value="">Choose a service</option>
+    <option value="agents">AI agents and orchestration</option>
+    <option value="automation">Business and CRM automation</option>
+    <option value="infrastructure">Developer APIs and infrastructure</option>
+    <option value="licensing">Software licensing and delivery</option>
+  </select></label>
+  <label for="scope-organization">Business or organization (optional)<input id="scope-organization" name="organization" type="text" maxlength="120" autocomplete="organization"></label>
+  <label for="scope-tools">Existing tools (optional)<input id="scope-tools" name="tools" type="text" maxlength="160" placeholder="Example: CRM, spreadsheet, API"></label>
+  <label for="scope-timeline">Target timeline<select id="scope-timeline" name="timeline" required>
+    <option value="">Choose a timeline</option>
+    <option value="exploring">Exploring options</option>
+    <option value="thirty">Within 30 days</option>
+    <option value="ninety">Within 90 days</option>
+    <option value="flexible">Flexible</option>
+  </select></label>
+  <label class="scope-full" for="scope-outcome">What result should the software deliver?<textarea id="scope-outcome" name="outcome" required minlength="10" maxlength="700" rows="5" placeholder="Describe the process, expected output, and how success would be checked. Do not include personal or customer data."></textarea></label>
+  <p class="scope-full scope-warning">Do not include passwords, API keys, customer lists, phone numbers, client records or protected information. Custom work requires written scope and approval; there is no charge for preparing this draft.</p>
+  <div class="scope-full scope-actions"><button class="catalog-cta scope-button" type="submit">Prepare inquiry draft</button><a id="scope-email-link" class="catalog-link" hidden>Open email draft for review</a></div>
+  <label class="scope-full" for="scope-preview">Preview (nothing sent)<textarea id="scope-preview" readonly rows="11" aria-describedby="scope-status"></textarea></label>
+  <p class="scope-full" id="scope-status" role="status" aria-live="polite"></p>
+</form>
+<noscript><p>The inquiry draft tool requires JavaScript. You can also use the contact email on the support page; do not include sensitive records.</p></noscript>
+</section>
+<section class="catalog-section" aria-labelledby="request-heading"><p class="smalllabel">BUYER NEXT STEP</p><h2 id="request-heading">Need a different outcome?</h2><p>Send a concise description of the workflow, current tools, access requirements and required result. We can confirm feasibility and scope without receiving customer records or credentials by email.</p><a class="catalog-cta" href="#scope-request">Contact Garcar <span aria-hidden="true">↗</span></a></section>
 </main><footer class="footer wrap"><span>© 2026 Garcar Enterprise LLC</span><div class="footer-links"><a href="/">Home</a><a href="/support">Support</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></footer>
-</body></html>
+<script src="/scope-request.js" defer></script></body></html>
