@@ -30,7 +30,7 @@ assert(acquisition.includes("credentials: 'same-origin'"));
 assert(acquisition.includes('contact_permission'));
 assert(privacy.includes('promotional updates are optional'));
 const terms=get('./terms.html');
-for(const p of [more,start,terms,privacy]) {
+for(const p of [start,terms,privacy]) {
   assert(p.includes('SERVING REAL ESTATE TEAMS ACROSS TEXAS'),'A page header reverted to DFW-only messaging');
   assert(!p.includes('DFW REAL ESTATE TEAMS'),'DFW-only header cannot return');
 }
@@ -46,6 +46,8 @@ assert(home.includes('Lead Follow-Up Review'));
 assert(home.includes('id="portfolio"'));
 assert(terms.includes('Texas-wide availability'));
 assert(more.includes('Texas-wide, remote real estate Follow-Up Review'));
+assert(more.includes('GARCAR AI, SOFTWARE &amp; DIGITAL PRODUCTS'));
+assert(more.includes('href="/ai-directory"'));
 assert(server.includes('handleAcquisition(req,res)'),'Customer inquiry route must remain in place');
 
 // Technical SEO regression coverage: public discovery files and route MIME types.
