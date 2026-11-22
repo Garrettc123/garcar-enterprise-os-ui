@@ -11,7 +11,7 @@ assert(!/RHNS|NEXUS|Wealth Forge/i.test(home));
 assert(more.includes('RHNS')&&more.includes('NEXUS')&&more.includes('WEALTH FORGE'));
 assert.equal((more.match(/class="listing"/g)||[]).length,50);
 assert.equal((more.match(/class="arch-card"><span class="num"/g)||[]).length,7);
-assert(home.indexOf('href="/more"') > home.indexOf('</main>'));
+assert(home.includes('href="/more"') && home.includes('href="/products"') && home.includes('href="/ai-directory"'));
 assert(!server.includes('eval('));
 assert(server.includes("'/support'"));
 assert(home.includes('href="/support"'));
@@ -30,7 +30,7 @@ assert(acquisition.includes("credentials: 'same-origin'"));
 assert(acquisition.includes('contact_permission'));
 assert(privacy.includes('promotional updates are optional'));
 const terms=get('./terms.html');
-for(const p of [home,more,start,terms,privacy]) {
+for(const p of [start,terms,privacy]) {
   assert(p.includes('SERVING REAL ESTATE TEAMS ACROSS TEXAS'),'A page header reverted to DFW-only messaging');
   assert(!p.includes('DFW REAL ESTATE TEAMS'),'DFW-only header cannot return');
 }
@@ -39,10 +39,15 @@ assert(home.includes('BUILT FOR TEXAS / STATEWIDE SERVICE'));
 assert(home.includes('Every other Texas county'));
 assert(home.includes('Rio Grande Valley')&&home.includes('El Paso')&&home.includes('Houston')&&home.includes('Waco'));
 assert(home.includes('Serving Texas statewide'));
-assert(home.includes('GARCAR ENTERPRISE / SERVING ALL OF TEXAS'));
-assert(home.includes('Texas Real Estate Lead Follow-Up Review'));
+assert(home.includes('GARCAR ENTERPRISE / BUSINESS SOFTWARE &amp; AUTOMATION'));
+assert(home.includes('AI &amp; BUSINESS SOFTWARE'));
+assert(home.includes('Garcar Enterprise | AI Products, Automation &amp; Business Software'));
+assert(home.includes('Lead Follow-Up Review'));
+assert(home.includes('id="portfolio"'));
 assert(terms.includes('Texas-wide availability'));
 assert(more.includes('Texas-wide, remote real estate Follow-Up Review'));
+assert(more.includes('GARCAR AI, SOFTWARE &amp; DIGITAL PRODUCTS'));
+assert(more.includes('href="/ai-directory"'));
 assert(server.includes('handleAcquisition(req,res)'),'Customer inquiry route must remain in place');
 
 // Technical SEO regression coverage: public discovery files and route MIME types.
@@ -51,9 +56,9 @@ const canonical='https://garcar-enterprise.up.railway.app';
 assert(robots.includes('User-agent: *'));
 assert(robots.includes('User-agent: OAI-SearchBot'));
 assert(robots.includes('Sitemap: '+canonical+'/sitemap.xml'));
-const indexedPaths=['/','/more','/deliverable','/support','/privacy','/terms'];
+const indexedPaths=['/','/more','/products','/ai-directory','/deliverable','/support','/privacy','/terms'];
 for(const path of indexedPaths)assert(sitemap.includes('<loc>'+canonical+path+'</loc>'),'Sitemap missing '+path);
-assert.equal((sitemap.match(/<url>/g)||[]).length,6,'Sitemap must contain six canonical pages including the deliverable preview');
+assert.equal((sitemap.match(/<url>/g)||[]).length,8,'Sitemap must contain eight canonical pages including product and AI directory routes');
 assert(!sitemap.includes('<loc>'+canonical+'/start</loc>'),'Post-checkout instructions must not be in the sitemap');
 assert(server.includes("['/robots.txt', ['robots.txt','text/plain; charset=utf-8']]"));
 assert(server.includes("['/sitemap.xml', ['sitemap.xml','application/xml; charset=utf-8']]"));
@@ -153,3 +158,35 @@ assert.equal(emptyColumns.trim().split(String.fromCharCode(10)).length,1);
 assert.equal(emptyColumns.trim().split(',').length,12);
 for (const col of ['rank','lead_id','class','received_at','contact_latency_minutes','hours_since_received','score','contactable','channel','value','reason','draft_action'])
   assert(emptyColumns.includes(col), 'Missing engine CSV column '+col);
+
+
+// Garcar AI directory and broader product portfolio regression checks.
+const products=get('./products.html');
+const directory=get('./ai-directory.html');
+const catalogStyles=get('./catalog.css');
+const directoryScript=get('./directory.js');
+assert(server.includes("'/products'") && server.includes("'/ai-directory'"));
+assert(server.includes("'/catalog.css'") && server.includes("'/directory.js'"));
+assert(home.includes('href="/catalog.css"'));
+assert(products.includes('href="/catalog.css"') && directory.includes('href="/catalog.css"'));
+assert(directory.includes('src="/directory.js"'));
+assert.equal((products.match(/<h1\b/g)||[]).length,1);
+assert.equal((directory.match(/<h1\b/g)||[]).length,1);
+assert.equal((directory.match(/class="directory-card"/g)||[]).length,12);
+assert(products.includes('Lead Follow-Up Review') && products.includes('Callback Clock Installation'));
+assert(products.includes('$497') && products.includes('$2,500') && products.includes('$2,003'));
+assert.equal((products.match(/buy\.stripe\.com/g)||[]).length,1,'Only the reviewed $497 one-time checkout may appear on the products page');
+assert(products.includes('https://buy.stripe.com/8x2eVddjf0hQ86Tf0f43S2h'));
+assert(!products.includes('buy.stripe.com/3cI00j7YV0hQgDp8BR43S2v'));
+assert(products.includes('Quote required') && products.includes('No instant-purchase claim'));
+assert(directory.includes('https://github.com/Garrettc123/atlas-agents'));
+assert(directory.includes('https://github.com/Garrettc123/garcar-payments'));
+assert(directory.includes('Internal development') && directory.includes('Public source project'));
+assert(directory.includes('not a claim that every codebase is deployed'));
+assert(directory.includes('id="directory-search"') && directory.includes('id="directory-category"') && directory.includes('id="directory-status"'));
+assert(directoryScript.includes('card.hidden') && directoryScript.includes('textContent'));
+assert(!directoryScript.includes('innerHTML') && !directoryScript.includes('fetch('));
+assert(catalogStyles.includes('.directory-grid') && catalogStyles.includes('@media'));
+assert(llms.includes('/ai-directory') && llms.includes('/products'));
+assert(!directory.includes('dda_') && !directory.includes('sk_live_'));
+console.log('PASS: product catalog and searchable AI directory static contracts');
