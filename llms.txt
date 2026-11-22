@@ -1,6 +1,12 @@
 # Garcar Enterprise
 
-> Texas-wide remote follow-up review service for real estate teams. Garcar Enterprise LLC reviews an authorized CRM lead export to identify missed callbacks, stale conversations, unclear ownership, and records with no next action. The service does not guarantee additional revenue.
+> Garcar Enterprise LLC builds AI agent workflows, business automation, lead-response intelligence and developer infrastructure. Its fixed-scope Texas follow-up review does not guarantee additional revenue. Public source projects and internal initiatives do not imply verified production deployment or customer availability.
+
+## Offer and product index
+- AI directory: https://garcar-enterprise.up.railway.app/ai-directory
+- Products and services: https://garcar-enterprise.up.railway.app/products
+- Custom AI agent orchestration, API integration and developer systems require agreed scope and a written quote.
+- Archived digital products on /more are not guaranteed to be purchasable or instantly deliverable.
 
 ## Primary offer
 - Follow-Up Review: $497, one time, for one real estate team and one recent, authorized, usable CRM lead export.
