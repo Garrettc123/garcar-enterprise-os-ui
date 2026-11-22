@@ -19,6 +19,7 @@ const routes = new Map([
   ['/style.css', ['style.css','text/css; charset=utf-8']],
   ['/catalog.css', ['catalog.css','text/css; charset=utf-8']],
   ['/directory.js', ['directory.js','text/javascript; charset=utf-8']],
+  ['/scope-request.js', ['scope-request.js','text/javascript; charset=utf-8']],
   ['/favicon.svg', ['favicon.svg','image/svg+xml']],
   ['/acquisition.js', ['acquisition.js','text/javascript; charset=utf-8']],
   ['/robots.txt', ['robots.txt','text/plain; charset=utf-8']],
@@ -181,7 +182,7 @@ http.createServer(async (req,res)=>{
   if (!file) {res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8',...headers});return res.end('Not found');}
   try {
     const body = await readFile(join(root,file[0]));
-    res.writeHead(200, {'Content-Type':file[1], 'Cache-Control':path==='/style.css'||path==='/catalog.css'||path==='/directory.js'||path==='/favicon.svg'?'public, max-age=600':'no-store',...headers});
+    res.writeHead(200, {'Content-Type':file[1], 'Cache-Control':path==='/style.css'||path==='/catalog.css'||path==='/directory.js'||path==='/scope-request.js'||path==='/favicon.svg'?'public, max-age=600':'no-store',...headers});
     if(req.method==='HEAD')return res.end();
     res.end(body);
   } catch {
