@@ -5,7 +5,7 @@ Live domain: https://garcar-enterprise.up.railway.app
 
 ## Public pages
 - / — Garcar Enterprise overview and current fixed-price review
-- /products — approved service pricing, scoped software engineering and digital product availability
+- /products — approved service pricing, scoped software engineering, digital product availability, and a client-only buyer scope draft (no automatic send)
 - /ai-directory — searchable, source-backed directory of agents, software projects and services
 - /more — preserved archive of seven divisions and 50 catalog listings (not instant-checkout products)
 
