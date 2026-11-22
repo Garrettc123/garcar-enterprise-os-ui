@@ -190,3 +190,18 @@ assert(catalogStyles.includes('.directory-grid') && catalogStyles.includes('@med
 assert(llms.includes('/ai-directory') && llms.includes('/products'));
 assert(!directory.includes('dda_') && !directory.includes('sk_live_'));
 console.log('PASS: product catalog and searchable AI directory static contracts');
+
+// Scope request is buyer-controlled, local-only and does not reuse the review-only acquisition endpoint.
+const scopeScript=get('./scope-request.js');
+assert(products.includes('id="scope-form"') && products.includes('id="scope-preview"'));
+assert(products.includes('id="scope-email-link"') && products.includes('src="/scope-request.js"'));
+assert(products.includes('id="scope-request"') && directory.includes('href="/products#scope-request"'));
+assert(server.includes("'/scope-request.js'"));
+assert(scopeScript.includes('event.preventDefault()') && scopeScript.includes('encodeURIComponent'));
+assert(scopeScript.includes('mailto:gwc2780@gmail.com'));
+for(const forbidden of ['fetch(', 'XMLHttpRequest', 'sendBeacon', 'localStorage', 'sessionStorage', 'innerHTML']) {
+  assert(!scopeScript.includes(forbidden), 'Buyer draft must remain local and plain-text: '+forbidden);
+}
+assert(!products.includes('action="/api/acquisition"'),'Custom scope must not enter review-only CRM intake');
+assert(get('./catalog.css').includes('.scope-form'));
+console.log('PASS: custom buyer inquiry generated locally, no outbound or checkout mutation');
